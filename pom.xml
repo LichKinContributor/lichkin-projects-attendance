@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>pom</packaging>
+
+  <groupId>com.lichkin.projects</groupId>
+  <artifactId>lichkin-projects-attendance</artifactId>
+  <version>1.0.0.RELEASE</version>
+
+  <parent>
+    <groupId>com.lichkin.projects</groupId>
+    <artifactId>lichkin-projects-core</artifactId>
+    <version>1.0.0.RELEASE</version>
+  </parent>
+
+  <properties>
+    <com.lichkin.projects.attendance.version>1.0.0.RELEASE</com.lichkin.projects.attendance.version>
+  </properties>
+
+  <modules>
+    <module>lichkin-projects-attendance-common</module>
+    <module>lichkin-projects-attendance-entities</module>
+    <module>lichkin-projects-attendance-services</module>
+    <module>lichkin-projects-attendance-apis-generator</module>
+    <module>lichkin-projects-attendance-apis-common</module>
+    <module>lichkin-projects-attendance-admin</module>
+    <module>lichkin-projects-attendance-admin-ui</module>
+    <module>lichkin-projects-attendance-admin-launcher</module>
+    <module>lichkin-projects-attendance-user</module>
+    <module>lichkin-projects-attendance-user-ui</module>
+    <module>lichkin-projects-attendance-user-launcher</module>
+    <module>lichkin-projects-attendance-employee</module>
+    <module>lichkin-projects-attendance-employee-ui</module>
+    <module>lichkin-projects-attendance-employee-launcher</module>
+    <module>lichkin-projects-attendance-quartz</module>
+  </modules>
+
+</project>
