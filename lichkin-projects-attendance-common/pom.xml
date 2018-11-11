@@ -25,6 +25,18 @@
       <artifactId>lichkin-projects-core-common</artifactId>
       <version>${com.lichkin.projects.core.version}</version>
     </dependency>
+    <!-- lichkin projects activiti -->
+    <dependency>
+      <groupId>com.lichkin.projects</groupId>
+      <artifactId>lichkin-projects-activiti-common</artifactId>
+      <version>${com.lichkin.projects.activiti.version}</version>
+    </dependency>
+    <!-- lichkin projects app -->
+    <dependency>
+      <groupId>com.lichkin.projects</groupId>
+      <artifactId>lichkin-projects-app-common</artifactId>
+      <version>${com.lichkin.projects.app.version}</version>
+    </dependency>
   </dependencies>
 
 </project>

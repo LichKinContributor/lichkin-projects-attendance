@@ -1,0 +1,3 @@
+$.LKExtendICON({
+  'employeeScheduleConfigMgmt' : 'user-cog',
+});

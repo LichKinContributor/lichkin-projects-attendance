@@ -1,0 +1,3 @@
+$.LKExtendICON({
+  'compScheduleConfigMgmt' : 'calendar-alt',
+});

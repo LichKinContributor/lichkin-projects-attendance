@@ -1,0 +1,3 @@
+$.LKExtendICON({
+  'employeePunchTheClockMgmt' : 'user-clock',
+});
