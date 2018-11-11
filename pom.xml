@@ -26,13 +26,10 @@
     <module>lichkin-projects-attendance-apis-common</module>
     <module>lichkin-projects-attendance-admin</module>
     <module>lichkin-projects-attendance-admin-ui</module>
-    <module>lichkin-projects-attendance-admin-launcher</module>
     <module>lichkin-projects-attendance-user</module>
     <module>lichkin-projects-attendance-user-ui</module>
-    <module>lichkin-projects-attendance-user-launcher</module>
     <module>lichkin-projects-attendance-employee</module>
     <module>lichkin-projects-attendance-employee-ui</module>
-    <module>lichkin-projects-attendance-employee-launcher</module>
     <module>lichkin-projects-attendance-quartz</module>
   </modules>
 
