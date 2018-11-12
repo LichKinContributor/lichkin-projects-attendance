@@ -25,7 +25,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
               },
               value : rowData.scheduleType,
               onChange : function($droplist, pluginValues, pluginValue, currentValue) {
-                if (pluginValue == '') {
+                if (currentValue == '') {
                   return;
                 }
                 LK.UI.openDialog({
@@ -80,7 +80,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
                         validator : true,
                         url : '/SysCompScheduleConfig/LD',
                         param : {
-                          scheduleType : pluginValue
+                          scheduleType : currentValue
                         },
                         linkages : [
                           'employeeSchedule'
