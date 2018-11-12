@@ -93,12 +93,6 @@ public class SysEmployeeAttendanceService extends LKDBService {
 			entity.setCompId(compId);
 			entity.setLoginId(loginId);
 
-			entity.setTakeWorkingDayOff(false);
-			entity.setAskForLeave(false);
-			entity.setAbsenteeism(false);
-			entity.setBeLate(false);
-			entity.setLeaveEarly(false);
-
 			String day = LKDateTimeUtils.toString(firstDayOfNextWeek.plusDays(i), LKDateTimeTypeEnum.DATE_ONLY);
 			entity.setWorkDate(day);
 			String nextDay = LKDateTimeUtils.toString(firstDayOfNextWeek.plusDays(i + 1), LKDateTimeTypeEnum.DATE_ONLY);
