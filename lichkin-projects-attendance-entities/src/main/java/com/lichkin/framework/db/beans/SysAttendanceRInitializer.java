@@ -74,6 +74,14 @@ class SysAttendanceRInitializer implements LKRInitializer {
 		LKDBResource.addColumn("40004011", "SysEmployeePunchTheClockEntity", "longitude");
 		LKDBResource.addColumn("40004012", "SysEmployeePunchTheClockEntity", "altitude");
 		LKDBResource.addColumn("40004013", "SysEmployeePunchTheClockEntity", "address");
+		LKDBResource.addTable("com.lichkin.springframework.entities.impl.SysCompAttendanceAreaConfigEntity", "T_SYS_COMP_ATTENDANCE_AREA_CONFIG", "SysCompAttendanceAreaConfigEntity");
+		LKDBResource.addColumn("40005000", "SysCompAttendanceAreaConfigEntity", "id");
+		LKDBResource.addColumn("40005001", "SysCompAttendanceAreaConfigEntity", "compId");
+		LKDBResource.addColumn("40005002", "SysCompAttendanceAreaConfigEntity", "latitude");
+		LKDBResource.addColumn("40005003", "SysCompAttendanceAreaConfigEntity", "longitude");
+		LKDBResource.addColumn("40005004", "SysCompAttendanceAreaConfigEntity", "altitude");
+		LKDBResource.addColumn("40005005", "SysCompAttendanceAreaConfigEntity", "radius");
+		LKDBResource.addColumn("40005006", "SysCompAttendanceAreaConfigEntity", "ogham");
 	}
 
 }
