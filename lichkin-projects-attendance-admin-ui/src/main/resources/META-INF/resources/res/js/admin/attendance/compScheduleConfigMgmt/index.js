@@ -168,7 +168,7 @@ var $datagrid = LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
         width : 250
       }, {
         text : 'scheduleType',
-        name : 'scheduleTypeName',
+        name : 'scheduleType',
         width : 80
       }, {
         text : 'schedule_startTime',
