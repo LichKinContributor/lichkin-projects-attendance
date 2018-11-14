@@ -37,9 +37,9 @@ public class S extends LKApiBusInsertWithoutCheckerService<I, SysEmployeePunchTh
 	@RequiredArgsConstructor
 	enum ErrorCodes implements LKCodeEnum {
 
-		app_PunchTheClock_invalid_time(40000),
+		app_PunchTheClock_invalid_time(50000),
 
-		app_PunchTheClock_invalid_area(40001),
+		app_PunchTheClock_invalid_area(50001),
 
 		;
 
@@ -90,8 +90,8 @@ public class S extends LKApiBusInsertWithoutCheckerService<I, SysEmployeePunchTh
 		QuerySQL sql = new QuerySQL(false, SysEmployeeAttendanceEntity.class);
 		sql.eq(SysEmployeeAttendanceR.compId, compId);
 		sql.eq(SysEmployeeAttendanceR.loginId, loginId);
-		sql.gte(SysEmployeeAttendanceR.allowBeforeStartTime, nowTime);
-		sql.lte(SysEmployeeAttendanceR.allowAfterEndTime, nowTime);
+		sql.lte(SysEmployeeAttendanceR.allowBeforeStartTime, nowTime);
+		sql.gte(SysEmployeeAttendanceR.allowAfterEndTime, nowTime);
 		sql.where(
 
 				new Condition(true
@@ -154,7 +154,7 @@ public class S extends LKApiBusInsertWithoutCheckerService<I, SysEmployeePunchTh
 		if (entity == null) {
 			return true;
 		}
-		return LKAreaUtils.check(entity.getLatitude(), entity.getLongitude(), entity.getAltitude(), entity.getRadius(), entity.getOgham() == null ? null : ((int) entity.getOgham()), latitude, longitude, altitude);
+		return LKAreaUtils.check(entity.getLatitude(), entity.getLongitude(), entity.getAltitude(), entity.getRadius() * 50, entity.getOgham() == null ? null : ((int) entity.getOgham()), latitude, longitude, altitude);
 	}
 
 }
