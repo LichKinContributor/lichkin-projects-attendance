@@ -32,11 +32,11 @@ public class SysCompAttendanceAreaConfigEntity extends CompIDEntity {
 	@Column
 	private Double altitude;
 
-	/** 水平面半径 */
+	/** 水平面半径（50米） */
 	@Column(nullable = false)
 	private Byte radius;
 
-	/** 垂直面落差 */
+	/** 垂直面落差（米） */
 	@Column
 	private Byte ogham;
 
