@@ -3,10 +3,13 @@ package com.lichkin.application.services.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.lichkin.defines.AttendanceStatics;
 import com.lichkin.framework.db.beans.DeleteSQL;
 import com.lichkin.framework.db.beans.QuerySQL;
 import com.lichkin.framework.db.beans.SysEmployeeAttendanceR;
@@ -149,6 +152,78 @@ public class SysEmployeeAttendanceService extends LKDBService {
 		}
 
 		dao.persistList(list);
+	}
+
+
+	/**
+	 * 处理公司所有员工今天以前的考勤是否旷工
+	 * @param compId 公司ID
+	 * @param workDate 考勤时间
+	 */
+	@Transactional
+	public void handCompAttendanceByDay(String compId, String workDate) {
+		QuerySQL sql = new QuerySQL(false, SysEmployeeAttendanceEntity.class);
+		sql.eq(SysEmployeeAttendanceR.compId, compId);
+		sql.gte(SysEmployeeAttendanceR.workDate, workDate);
+		sql.lt(SysEmployeeAttendanceR.workDate, LKDateTimeUtils.now(LKDateTimeTypeEnum.DATE_ONLY));
+		List<SysEmployeeAttendanceEntity> listEmployeeAttendance = dao.getList(sql, SysEmployeeAttendanceEntity.class);
+
+		if (CollectionUtils.isNotEmpty(listEmployeeAttendance)) {
+			List<SysEmployeeAttendanceEntity> listAbsenteeism = new ArrayList<>();
+			for (SysEmployeeAttendanceEntity entity : listEmployeeAttendance) {
+				// 非休息日
+				if (!entity.getDayOff()) {
+					if (StringUtils.isBlank(entity.getFirstPunchTime()) || StringUtils.isBlank(entity.getLastPunchTime())) {// 矿工
+						// 没有调休 也没有请假 才算旷工
+						if (((entity.getTakeWorkingDayOff() == null) || !entity.getTakeWorkingDayOff())
+
+								&& ((entity.getAskForLeave() == null) || !entity.getAskForLeave())) {
+							entity.setAbsenteeism(true);
+							listAbsenteeism.add(entity);
+						}
+					}
+				}
+			}
+			// 有矿工的才修改表
+			if (CollectionUtils.isNotEmpty(listAbsenteeism)) {
+				dao.mergeList(listAbsenteeism);
+			}
+
+		}
+	}
+
+
+	/**
+	 * 处理请假、调休考勤信息
+	 * @param loginId 员工ID
+	 * @param compId 公司ID
+	 * @param processCode 流程code
+	 * @param startDate 请假开始时间
+	 * @param endDate 请假截止时间
+	 */
+	@Transactional
+	public void handAttendanceLeaveAndRest(String loginId, String compId, String processCode, String startDate, String endDate) {
+		QuerySQL sql = new QuerySQL(false, SysEmployeeAttendanceEntity.class);
+		sql.eq(SysEmployeeAttendanceR.loginId, loginId);
+		sql.eq(SysEmployeeAttendanceR.compId, compId);
+		sql.gte(SysEmployeeAttendanceR.workDate, startDate);
+		sql.lte(SysEmployeeAttendanceR.workDate, endDate);
+
+		List<SysEmployeeAttendanceEntity> listEmployeeAttendance = dao.getList(sql, SysEmployeeAttendanceEntity.class);
+
+		if (CollectionUtils.isNotEmpty(listEmployeeAttendance)) {
+			for (SysEmployeeAttendanceEntity entity : listEmployeeAttendance) {
+				// 如果请假 或者调休后 不算迟到和旷工
+				entity.setAbsenteeism(false);
+				entity.setLeaveEarly(false);
+				if (AttendanceStatics.LEAVE.equals(processCode)) {
+					entity.setAskForLeave(true);
+				} else if (AttendanceStatics.REST.equals(processCode)) {
+					entity.setTakeWorkingDayOff(true);
+				}
+			}
+			dao.mergeList(listEmployeeAttendance);
+		}
 	}
 
 }

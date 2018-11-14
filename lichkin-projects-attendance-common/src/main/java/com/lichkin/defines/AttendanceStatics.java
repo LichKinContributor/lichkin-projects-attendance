@@ -6,4 +6,9 @@ package com.lichkin.defines;
  */
 public interface AttendanceStatics {
 
+	/** 请假工作流processCode */
+	public final static String LEAVE = "LEAVE";
+
+	/** 调休工作流processCode */
+	public final static String REST = "REST";
 }
