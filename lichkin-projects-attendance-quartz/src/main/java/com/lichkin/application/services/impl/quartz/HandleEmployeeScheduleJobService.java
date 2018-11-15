@@ -3,8 +3,6 @@ package com.lichkin.application.services.impl.quartz;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,32 +17,25 @@ import com.lichkin.framework.db.beans.eq_;
 import com.lichkin.framework.defines.LKConfigStatics;
 import com.lichkin.framework.defines.enums.impl.LKUsingStatusEnum;
 import com.lichkin.framework.springboot.configurations.LKQuartzManager;
-import com.lichkin.framework.springboot.services.LKBaseJobService;
+import com.lichkin.framework.springboot.services.LKBaseDBJobService;
 import com.lichkin.framework.utils.LKCalendarUtils;
 import com.lichkin.springframework.entities.impl.SysCompEntity;
 import com.lichkin.springframework.entities.impl.SysEmployeeAttendanceEntity;
 import com.lichkin.springframework.entities.impl.SysEmployeeEntity;
 import com.lichkin.springframework.entities.impl.SysEmployeeScheduleConfigEntity;
-import com.lichkin.springframework.services.impl.SysConfigQuartzBusService;
 
 /**
  * 处理未生成排班的员工
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
-public class HandleEmployeeScheduleJobService extends LKBaseJobService {
-
-	/** 日志对象 */
-	protected final Log logger = LogFactory.getLog(getClass());
+public class HandleEmployeeScheduleJobService extends LKBaseDBJobService {
 
 	@Autowired
 	private SysEmployeeAttendanceService service;
 
-	@Autowired
-	private SysConfigQuartzBusService quartzBusService;
-
 
 	@Override
-	protected void doTask() {
+	protected void doTask(DateTime lastExecuteTime, DateTime lastFinishedTime) {
 		// 查询所有已配置排班的员工
 		QuerySQL sql = new QuerySQL(SysEmployeeEntity.class);
 		sql.selectTable(SysEmployeeEntity.class);
@@ -92,9 +83,6 @@ public class HandleEmployeeScheduleJobService extends LKBaseJobService {
 		} else {
 			LKQuartzManager.getInstance().rescheduleJob(false, LKConfigStatics.SYSTEM_TAG, "HandleEmployeeScheduleJobService", "0 0 5 ? * TUE,FRI");
 		}
-
-		// 记录任务最后一次执行时间
-		quartzBusService.updateJobLastExecutionTime(getClass().getSimpleName());
 	}
 
 }
