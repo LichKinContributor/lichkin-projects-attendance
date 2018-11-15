@@ -30,7 +30,7 @@ public class HandleCompAttendanceJobService extends LKBaseDBJobService {
 		// 本任务延迟执行两天处理考勤，以确保考勤处理正确。
 		// 首次执行任务，处理前天的考勤。
 		// 后续执行任务，顺延一天，故取上次执行时间的前一天。
-		DateTime day = lastExecuteTime == null ? DateTime.now().minusDays(2) : lastExecuteTime.minusDays(1);
+		DateTime day = lastFinishedTime == null ? DateTime.now().minusDays(2) : lastFinishedTime.minusDays(1);
 
 		QuerySQL sql = new QuerySQL(SysCompEntity.class);
 		sql.eq(SysCompR.usingStatus, LKUsingStatusEnum.USING);
