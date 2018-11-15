@@ -23,7 +23,7 @@ import com.lichkin.springframework.entities.impl.SysConfigQuartzEntity;
 import com.lichkin.springframework.services.impl.SysConfigQuartzBusService;
 
 /**
- * 处理员工请假考勤信息
+ * 处理员工请假、调休考勤信息
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 public class HandleEmployeeLeaveAndRestJobService extends LKBaseJobService {
@@ -49,7 +49,7 @@ public class HandleEmployeeLeaveAndRestJobService extends LKBaseJobService {
 		}
 		configQuartz.setLastExecutionTime(LKDateTimeUtils.now());
 
-		// 查询已经审核通过的请假信息
+		// 查询已经审核通过的请假、调休信息
 		QuerySQL sql = new QuerySQL(SysActivitiFormDataEntity.class);
 		sql.eq(SysActivitiFormDataR.usingStatus, LKUsingStatusEnum.USING);
 		sql.eq(SysActivitiFormDataR.approvalStatus, ApprovalStatusEnum.APPROVED);

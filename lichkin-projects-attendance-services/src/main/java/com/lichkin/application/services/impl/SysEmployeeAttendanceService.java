@@ -198,8 +198,8 @@ public class SysEmployeeAttendanceService extends LKDBService {
 	 * @param loginId 员工ID
 	 * @param compId 公司ID
 	 * @param processCode 流程code
-	 * @param startDate 请假开始时间
-	 * @param endDate 请假截止时间
+	 * @param startDate 开始时间
+	 * @param endDate 截止时间
 	 */
 	@Transactional
 	public void handAttendanceLeaveAndRest(String loginId, String compId, String processCode, String startDate, String endDate) {
@@ -213,9 +213,8 @@ public class SysEmployeeAttendanceService extends LKDBService {
 
 		if (CollectionUtils.isNotEmpty(listEmployeeAttendance)) {
 			for (SysEmployeeAttendanceEntity entity : listEmployeeAttendance) {
-				// 如果请假 或者调休后 不算迟到和旷工
+				// 如果请假 或者调休后 不算旷工
 				entity.setAbsenteeism(false);
-				entity.setLeaveEarly(false);
 				if (AttendanceStatics.LEAVE.equals(processCode)) {
 					entity.setAskForLeave(true);
 				} else if (AttendanceStatics.REST.equals(processCode)) {
