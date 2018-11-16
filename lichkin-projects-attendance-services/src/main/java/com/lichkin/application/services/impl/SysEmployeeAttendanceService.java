@@ -9,7 +9,6 @@ import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.lichkin.defines.AttendanceStatics;
 import com.lichkin.framework.db.beans.DeleteSQL;
 import com.lichkin.framework.db.beans.QuerySQL;
 import com.lichkin.framework.db.beans.SysEmployeeAttendanceR;
@@ -162,67 +161,52 @@ public class SysEmployeeAttendanceService extends LKDBService {
 	 */
 	@Transactional
 	public void handCompAttendanceByDay(String compId, String workDate) {
-		QuerySQL sql = new QuerySQL(false, SysEmployeeAttendanceEntity.class);
-		sql.eq(SysEmployeeAttendanceR.compId, compId);
-		sql.gte(SysEmployeeAttendanceR.workDate, workDate);
-		sql.lt(SysEmployeeAttendanceR.workDate, LKDateTimeUtils.now(LKDateTimeTypeEnum.DATE_ONLY));
-		List<SysEmployeeAttendanceEntity> listEmployeeAttendance = dao.getList(sql, SysEmployeeAttendanceEntity.class);
+		List<SysEmployeeAttendanceEntity> listEmployeeAttendance = getListAttendance("NO", compId, workDate, LKDateTimeUtils.now(LKDateTimeTypeEnum.DATE_ONLY));
 
-		if (CollectionUtils.isNotEmpty(listEmployeeAttendance)) {
-			List<SysEmployeeAttendanceEntity> listAbsenteeism = new ArrayList<>();
-			for (SysEmployeeAttendanceEntity entity : listEmployeeAttendance) {
-				// 非休息日
-				if (!entity.getDayOff()) {
-					if (StringUtils.isBlank(entity.getFirstPunchTime()) || StringUtils.isBlank(entity.getLastPunchTime())) {// 矿工
-						// 没有调休 也没有请假 才算旷工
-						if (((entity.getTakeWorkingDayOff() == null) || !entity.getTakeWorkingDayOff())
+		if (CollectionUtils.isEmpty(listEmployeeAttendance)) {
+			return;
+		}
 
-								&& ((entity.getAskForLeave() == null) || !entity.getAskForLeave())) {
-							entity.setAbsenteeism(true);
-							listAbsenteeism.add(entity);
-						}
+		List<SysEmployeeAttendanceEntity> listAbsenteeism = new ArrayList<>(listEmployeeAttendance.size());
+		for (SysEmployeeAttendanceEntity entity : listEmployeeAttendance) {
+			// 非休息日
+			if (!entity.getDayOff()) {
+				if (StringUtils.isBlank(entity.getFirstPunchTime()) || StringUtils.isBlank(entity.getLastPunchTime())) {// 旷工
+					// 没有调休 也没有请假 才算旷工
+					if (((entity.getTakeWorkingDayOff() == null) || !entity.getTakeWorkingDayOff())
+
+							&& ((entity.getAskForLeave() == null) || !entity.getAskForLeave())) {
+						entity.setAbsenteeism(true);
+						listAbsenteeism.add(entity);
 					}
 				}
 			}
-			// 有矿工的才修改表
-			if (CollectionUtils.isNotEmpty(listAbsenteeism)) {
-				dao.mergeList(listAbsenteeism);
-			}
+		}
 
+		// 有旷工的才修改表
+		if (CollectionUtils.isNotEmpty(listAbsenteeism)) {
+			dao.mergeList(listAbsenteeism);
 		}
 	}
 
 
 	/**
-	 * 处理请假、调休考勤信息
+	 * 获取考勤列表
 	 * @param loginId 员工ID
 	 * @param compId 公司ID
-	 * @param processCode 流程code
-	 * @param startDate 开始时间
-	 * @param endDate 截止时间
+	 * @param startDate 开始日期
+	 * @param endDate 结束日期
+	 * @return 考勤列表
 	 */
-	@Transactional
-	public void handAttendanceLeaveAndRest(String loginId, String compId, String processCode, String startDate, String endDate) {
+	public List<SysEmployeeAttendanceEntity> getListAttendance(String loginId, String compId, String startDate, String endDate) {
 		QuerySQL sql = new QuerySQL(false, SysEmployeeAttendanceEntity.class);
-		sql.eq(SysEmployeeAttendanceR.loginId, loginId);
+		if (!"NO".equals(loginId)) {
+			sql.eq(SysEmployeeAttendanceR.loginId, loginId);
+		}
 		sql.eq(SysEmployeeAttendanceR.compId, compId);
 		sql.gte(SysEmployeeAttendanceR.workDate, startDate);
 		sql.lte(SysEmployeeAttendanceR.workDate, endDate);
-
-		List<SysEmployeeAttendanceEntity> listEmployeeAttendance = dao.getList(sql, SysEmployeeAttendanceEntity.class);
-
-		if (CollectionUtils.isNotEmpty(listEmployeeAttendance)) {
-			for (SysEmployeeAttendanceEntity entity : listEmployeeAttendance) {
-				// 如果请假 或者调休后 不算旷工
-				entity.setAbsenteeism(false);
-				if (AttendanceStatics.LEAVE.equals(processCode)) {
-					entity.setAskForLeave(true);
-				} else if (AttendanceStatics.REST.equals(processCode)) {
-					entity.setTakeWorkingDayOff(true);
-				}
-			}
-			dao.mergeList(listEmployeeAttendance);
-		}
+		return dao.getList(sql, SysEmployeeAttendanceEntity.class);
 	}
 
 }
