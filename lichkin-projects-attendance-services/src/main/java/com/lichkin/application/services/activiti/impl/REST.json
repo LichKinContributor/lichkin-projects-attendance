@@ -1,0 +1,41 @@
+[
+    {
+        "plugin": "textbox",
+        "options": {
+            "name": "userName",
+            "readonly": true,
+            "commitable": true
+        }
+    },
+    {
+        "plugin": "textbox",
+        "options": {
+            "name": "deptName",
+            "readonly": true,
+            "commitable": true
+        }
+    },
+    {
+        "businessField": 1,
+        "plugin": "datepicker",
+        "options": {
+            "name": "startDate",
+            "validator": true
+        }
+    },
+    {
+        "businessField": 2,
+        "plugin": "datepicker",
+        "options": {
+            "name": "endDate",
+            "validator": true
+        }
+    },
+    {
+        "plugin": "textbox",
+        "options": {
+            "name": "reason",
+            "rows": 2
+        }
+    }
+]
