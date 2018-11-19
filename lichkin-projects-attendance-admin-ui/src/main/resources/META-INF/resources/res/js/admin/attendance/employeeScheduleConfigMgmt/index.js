@@ -152,7 +152,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
       }, {
         text : 'remarks',
         width : null,
-        name : 'scheduleRemarks'
+        name : 'remarks'
       }
   ],
   pageable : false,
