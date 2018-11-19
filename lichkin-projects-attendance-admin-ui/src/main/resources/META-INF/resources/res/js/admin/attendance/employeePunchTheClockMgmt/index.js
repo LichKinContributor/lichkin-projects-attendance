@@ -19,7 +19,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
         text : 'employeePunchTheClockTime',
         width : 145,
         formatter : function(rowData) {
-          return formatterTime(rowData.insertTime);
+          return showStandardTime(rowData.insertTime);
         }
       }, {
         text : 'employeePunchTheClockAddress',
