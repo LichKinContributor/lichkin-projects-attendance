@@ -57,7 +57,7 @@ public class SysEmployeePunchTheClockEntity extends BaseAppEntity {
 	/** 员工ID（SysEmployeeEntity.id） */
 	@FieldGenerator()
 	@Column(length = 64, nullable = false)
-	private String loginId;
+	private String userId;
 
 	/** 地图API类型（枚举） */
 	@Enumerated(EnumType.STRING)

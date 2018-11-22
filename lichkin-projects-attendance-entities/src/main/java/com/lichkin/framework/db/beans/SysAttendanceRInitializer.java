@@ -68,7 +68,7 @@ class SysAttendanceRInitializer implements LKRInitializer {
 		LKDBResource.addColumn("40004005", "SysEmployeePunchTheClockEntity", "versionX");
 		LKDBResource.addColumn("40004006", "SysEmployeePunchTheClockEntity", "versionY");
 		LKDBResource.addColumn("40004007", "SysEmployeePunchTheClockEntity", "versionZ");
-		LKDBResource.addColumn("40004008", "SysEmployeePunchTheClockEntity", "loginId");
+		LKDBResource.addColumn("40004008", "SysEmployeePunchTheClockEntity", "userId");
 		LKDBResource.addColumn("40004009", "SysEmployeePunchTheClockEntity", "mapType");
 		LKDBResource.addColumn("40004010", "SysEmployeePunchTheClockEntity", "latitude");
 		LKDBResource.addColumn("40004011", "SysEmployeePunchTheClockEntity", "longitude");

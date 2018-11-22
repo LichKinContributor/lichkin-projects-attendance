@@ -22,7 +22,7 @@ public interface SysEmployeePunchTheClockR {
 
 	public static final int versionZ = 0x40004007;
 
-	public static final int loginId = 0x40004008;
+	public static final int userId = 0x40004008;
 
 	public static final int mapType = 0x40004009;
 
