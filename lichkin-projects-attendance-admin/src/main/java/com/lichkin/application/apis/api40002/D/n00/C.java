@@ -12,7 +12,7 @@ import com.lichkin.springframework.entities.impl.SysEmployeeScheduleConfigEntity
 import com.lichkin.springframework.services.LKApiBusDeleteService;
 
 @RestController("SysEmployeeScheduleConfigD00Controller")
-@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API_WEB_ADMIN + "/SysEmployeeScheduleConfig/D")
+@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API_WEB + "/SysEmployeeScheduleConfig/D")
 @LKApiType(apiType = ApiType.COMPANY_BUSINESS)
 public class C extends LKApiBusDeleteController<I, SysEmployeeScheduleConfigEntity> {
 

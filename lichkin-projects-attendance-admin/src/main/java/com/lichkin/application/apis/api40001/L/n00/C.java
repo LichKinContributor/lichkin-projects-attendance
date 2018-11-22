@@ -12,7 +12,7 @@ import com.lichkin.springframework.entities.impl.SysCompScheduleConfigEntity;
 import com.lichkin.springframework.services.LKApiBusGetListService;
 
 @RestController("SysCompScheduleConfigL00Controller")
-@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API_WEB_ADMIN + "/SysCompScheduleConfig/L")
+@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API_WEB + "/SysCompScheduleConfig/L")
 @LKApiType(apiType = ApiType.COMPANY_BUSINESS)
 public class C extends LKApiBusGetListController<I, O, SysCompScheduleConfigEntity> {
 

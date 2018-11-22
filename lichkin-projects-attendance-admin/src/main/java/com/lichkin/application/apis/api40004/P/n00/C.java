@@ -12,7 +12,7 @@ import com.lichkin.springframework.entities.impl.SysEmployeePunchTheClockEntity;
 import com.lichkin.springframework.services.LKApiBusGetPageService;
 
 @RestController("SysEmployeePunchTheClockP00Controller")
-@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API_WEB_ADMIN + "/SysEmployeePunchTheClock/P")
+@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API_WEB + "/SysEmployeePunchTheClock/P")
 @LKApiType(apiType = ApiType.COMPANY_BUSINESS)
 public class C extends LKApiBusGetPageController<I, O, SysEmployeePunchTheClockEntity> {
 
