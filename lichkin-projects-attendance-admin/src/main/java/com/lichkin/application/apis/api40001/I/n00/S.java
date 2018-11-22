@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lichkin.application.services.bus.impl.SysCompScheduleConfigBusService;
-import com.lichkin.framework.defines.enums.impl.LKUsingStatusEnum;
 import com.lichkin.framework.defines.enums.LKCodeEnum;
 import com.lichkin.springframework.entities.impl.SysCompScheduleConfigEntity;
 import com.lichkin.springframework.services.LKApiBusInsertService;
