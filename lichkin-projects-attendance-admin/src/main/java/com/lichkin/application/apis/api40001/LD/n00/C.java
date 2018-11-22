@@ -11,7 +11,7 @@ import com.lichkin.springframework.controllers.LKApiBusGetDroplistController;
 import com.lichkin.springframework.services.LKApiBusGetDroplistService;
 
 @RestController("SysCompScheduleConfigLD00Controller")
-@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API_WEB + "/SysCompScheduleConfig/LD")
+@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API + "/SysCompScheduleConfig/LD")
 @LKApiType(apiType = ApiType.COMPANY_BUSINESS)
 public class C extends LKApiBusGetDroplistController<I> {
 

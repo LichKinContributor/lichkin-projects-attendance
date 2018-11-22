@@ -12,7 +12,7 @@ import com.lichkin.springframework.entities.impl.SysEmployeeAttendanceEntity;
 import com.lichkin.springframework.services.LKApiBusGetPageService;
 
 @RestController("SysEmployeeAttendanceP00Controller")
-@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API_WEB + "/SysEmployeeAttendance/P")
+@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API + "/SysEmployeeAttendance/P")
 @LKApiType(apiType = ApiType.COMPANY_BUSINESS)
 public class C extends LKApiBusGetPageController<I, O, SysEmployeeAttendanceEntity> {
 

@@ -13,7 +13,7 @@ import com.lichkin.springframework.entities.impl.SysEmployeeScheduleConfigEntity
 import com.lichkin.springframework.services.LKApiBusInsertWithoutCheckerService;
 
 @RestController("SysEmployeeScheduleConfigI00Controller")
-@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API_WEB + "/SysEmployeeScheduleConfig/I")
+@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API + "/SysEmployeeScheduleConfig/I")
 @LKApiType(apiType = ApiType.COMPANY_BUSINESS)
 public class C extends LKApiBusInsertController<I, SysEmployeeScheduleConfigEntity> {
 

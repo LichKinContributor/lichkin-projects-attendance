@@ -12,7 +12,7 @@ import com.lichkin.springframework.entities.impl.SysEmployeePunchTheClockEntity;
 import com.lichkin.springframework.services.LKApiBusInsertWithoutCheckerService;
 
 @RestController(Statics.CONTROLLER_NAME)
-@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API_APP + Statics.SUB_URL)
+@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API + Statics.SUB_URL)
 @LKApiType(apiType = ApiType.COMPANY_BUSINESS)
 public class C extends LKApiBusInsertController<I, SysEmployeePunchTheClockEntity> {
 

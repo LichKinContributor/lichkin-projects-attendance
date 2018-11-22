@@ -18,7 +18,7 @@ import com.lichkin.springframework.controllers.LKApiYYController;
 import com.lichkin.springframework.services.LKApiService;
 
 @RestController("SysEmployeeScheduleConfigS01Controller")
-@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API_WEB + "/SysEmployeeScheduleConfig/S01")
+@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API + "/SysEmployeeScheduleConfig/S01")
 @LKApiType(apiType = ApiType.COMPANY_BUSINESS)
 public class C extends LKApiYYController<I, CO, I, SO> {
 

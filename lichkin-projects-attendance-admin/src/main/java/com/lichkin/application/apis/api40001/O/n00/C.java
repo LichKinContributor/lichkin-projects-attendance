@@ -12,7 +12,7 @@ import com.lichkin.springframework.entities.impl.SysCompScheduleConfigEntity;
 import com.lichkin.springframework.services.LKApiBusGetOneService;
 
 @RestController("SysCompScheduleConfigO00Controller")
-@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API_WEB + "/SysCompScheduleConfig/O")
+@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API + "/SysCompScheduleConfig/O")
 @LKApiType(apiType = ApiType.COMPANY_BUSINESS)
 public class C extends LKApiBusGetOneController<I, O, SysCompScheduleConfigEntity> {
 
