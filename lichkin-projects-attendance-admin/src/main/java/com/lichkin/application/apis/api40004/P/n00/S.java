@@ -36,7 +36,7 @@ public class S extends LKApiBusGetPageService<I, O, SysEmployeePunchTheClockEnti
 		sql.select(SysEmployeePunchTheClockR.address);
 
 		// 关联表
-		sql.innerJoin(SysEmployeeEntity.class, new Condition(SysEmployeeR.id, SysEmployeePunchTheClockR.loginId));
+		sql.innerJoin(SysEmployeeEntity.class, new Condition(SysEmployeeR.id, SysEmployeePunchTheClockR.userId));
 		sql.select(SysEmployeeR.userName);
 		sql.select(SysEmployeeR.cellphone);
 
