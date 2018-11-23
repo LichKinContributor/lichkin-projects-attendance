@@ -253,7 +253,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
             }
             ids.push(selectedDatas[i].employeeAttendanceId);
           }
-          LK.web.confirm('employeeScheduleConfigMgmt.grid.confirmResetAttendance', function() {
+          LK.confirm('employeeScheduleConfigMgmt.grid.confirmResetAttendance', function() {
             LK.ajax({
               url : '/SysEmployeeScheduleConfig/D',
               data : {
