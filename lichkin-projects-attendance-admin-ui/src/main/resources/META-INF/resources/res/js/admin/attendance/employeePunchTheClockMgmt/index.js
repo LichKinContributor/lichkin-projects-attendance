@@ -28,6 +28,54 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
       }
   ],
   pageable : true,
+  tools : [
+    {
+      singleCheck : true,
+      icon : 'view',
+      text : 'view',
+      click : function($button, $datagrid, $selecteds, selectedDatas, value) {
+        LK.UI.openDialog($.extend({}, {
+          size : {
+            cols : 4,
+            rows : 14
+          }
+        }, {
+          title : 'view',
+          icon : 'view',
+          mask : true,
+          buttons : [
+            {
+              text : 'cancel',
+              icon : 'cancel',
+              cls : 'danger',
+              click : function($button, $dialog, $contentBar) {
+                $dialog.LKCloseDialog();
+              }
+            }
+          ],
+          onAfterCreate : function($dialog, $contentBar) {
+            LK.UI.form({
+              $appendTo : $contentBar,
+              plugins : [
+                {
+                  plugin : 'map',
+                  options : {
+                    key : 'employeePunchTheClockMgmt.grid.columns.coverage',
+                    name : 'coverage',
+                    value : {
+                      longitude : selectedDatas.longitude,
+                      latitude : selectedDatas.latitude,
+                      markerLabel : selectedDatas.address
+                    }
+                  }
+                }
+              ]
+            });
+          }
+        }));
+      }
+    }
+  ],
   searchForm : [
       {
         plugin : 'textbox',
