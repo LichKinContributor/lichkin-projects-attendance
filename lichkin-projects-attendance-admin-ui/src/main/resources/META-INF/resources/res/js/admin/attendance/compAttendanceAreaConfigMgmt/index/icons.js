@@ -1,0 +1,3 @@
+$.LKExtendICON({
+  'compAttendanceAreaConfigMgmt' : 'user-clock',
+});
