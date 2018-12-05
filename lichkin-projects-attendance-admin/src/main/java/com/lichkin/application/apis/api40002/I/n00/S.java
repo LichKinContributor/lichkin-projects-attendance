@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.lichkin.application.services.bus.impl.SysEmployeeScheduleConfigBusService;
 import com.lichkin.framework.defines.enums.LKCodeEnum;
+import com.lichkin.springframework.controllers.ApiKeyValues;
 import com.lichkin.springframework.entities.impl.SysEmployeeScheduleConfigEntity;
 import com.lichkin.springframework.services.LKApiBusInsertWithoutCheckerService;
 
@@ -30,13 +31,7 @@ public class S extends LKApiBusInsertWithoutCheckerService<I, SysEmployeeSchedul
 
 
 	@Override
-	protected void beforeAddNew(I sin, String locale, String compId, String loginId, SysEmployeeScheduleConfigEntity entity) {
-		entity.setCompId(getCompId(compId, sin.getCompId()));
-	}
-
-
-	@Override
-	protected void beforeSaveMain(I sin, String locale, String compId, String loginId, SysEmployeeScheduleConfigEntity entity) {
+	protected void beforeSaveMain(I sin, ApiKeyValues<I> params, SysEmployeeScheduleConfigEntity entity) {
 		entity.setConfigTime(busService.analysisConfigTime());
 	}
 

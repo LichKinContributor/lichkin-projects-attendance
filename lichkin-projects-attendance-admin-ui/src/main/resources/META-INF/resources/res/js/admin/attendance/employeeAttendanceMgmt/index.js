@@ -81,12 +81,14 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
       }, {
         plugin : 'datepicker',
         options : {
-          name : 'startDate'
+          name : 'startDate',
+          maxDate : nextMonthDay()
         }
       }, {
         plugin : 'datepicker',
         options : {
-          name : 'endDate'
+          name : 'endDate',
+          maxDate : nextMonthDay()
         }
       }
   ]

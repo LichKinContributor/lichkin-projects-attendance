@@ -14,7 +14,7 @@ public interface SysEmployeeAttendanceR {
 
 	public static final int compId = 0x40003003;
 
-	public static final int loginId = 0x40003004;
+	public static final int employeeId = 0x40003004;
 
 	public static final int workDate = 0x40003005;
 

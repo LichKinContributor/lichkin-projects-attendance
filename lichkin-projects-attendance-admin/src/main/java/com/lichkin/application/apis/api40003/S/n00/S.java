@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lichkin.application.services.impl.SysEmployeeAttendanceService;
 import com.lichkin.framework.defines.LKFrameworkStatics;
 import com.lichkin.framework.defines.exceptions.LKException;
+import com.lichkin.springframework.controllers.ApiKeyValues;
 import com.lichkin.springframework.services.LKApiVoidService;
 
 @Service("SysEmployeeAttendanceS00Service")
@@ -18,14 +19,14 @@ public class S implements LKApiVoidService<I> {
 
 	@Transactional
 	@Override
-	public void handle(I sin, String locale, String compId, String loginId) throws LKException {
+	public void handle(I sin, ApiKeyValues<I> params) throws LKException {
 		if (sin.getId().contains(LKFrameworkStatics.SPLITOR)) {
 			String[] ids = sin.getId().split(LKFrameworkStatics.SPLITOR);
 			for (String id : ids) {
-				employeeAttendanceService.resetNextWeekEmployeeAttendance(compId, id);
+				employeeAttendanceService.resetNextWeekEmployeeAttendance(params.getCompId(), id);
 			}
 		} else {
-			employeeAttendanceService.resetNextWeekEmployeeAttendance(compId, sin.getId());
+			employeeAttendanceService.resetNextWeekEmployeeAttendance(params.getCompId(), sin.getId());
 		}
 	}
 

@@ -29,7 +29,7 @@ public class SysEmployeeScheduleConfigEntity extends BaseCompEntity {
 	/** 员工ID（SysEmployeeEntity.id） */
 	@FieldGenerator()
 	@Column(length = 64, nullable = false)
-	private String loginId;
+	private String employeeId;
 
 	/** 公司排班ID（SysCompScheduleConfigEntity.id） */
 	@FieldGenerator()

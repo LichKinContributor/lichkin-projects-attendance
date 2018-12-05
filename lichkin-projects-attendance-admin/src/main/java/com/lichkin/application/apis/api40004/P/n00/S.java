@@ -14,7 +14,9 @@ import com.lichkin.framework.db.beans.SysEmployeeR;
 import com.lichkin.framework.db.enums.LikeType;
 import com.lichkin.framework.defines.enums.impl.LKClientTypeEnum;
 import com.lichkin.framework.defines.enums.impl.LKDateTimeTypeEnum;
+import com.lichkin.framework.defines.enums.impl.LKUsingStatusEnum;
 import com.lichkin.framework.utils.LKDateTimeUtils;
+import com.lichkin.springframework.controllers.ApiKeyValues;
 import com.lichkin.springframework.entities.impl.SysEmployeeEntity;
 import com.lichkin.springframework.entities.impl.SysEmployeePunchTheClockEntity;
 import com.lichkin.springframework.services.LKApiBusGetPageService;
@@ -23,7 +25,7 @@ import com.lichkin.springframework.services.LKApiBusGetPageService;
 public class S extends LKApiBusGetPageService<I, O, SysEmployeePunchTheClockEntity> {
 
 	@Override
-	protected void initSQL(I sin, String locale, String compId, String loginId, QuerySQL sql) {
+	protected void initSQL(I sin, ApiKeyValues<I> params, QuerySQL sql) {
 		// 主表
 		sql.select(SysEmployeePunchTheClockR.id);
 		sql.select(SysEmployeePunchTheClockR.insertTime);
@@ -43,14 +45,14 @@ public class S extends LKApiBusGetPageService<I, O, SysEmployeePunchTheClockEnti
 		// 字典表
 		int i = 0;
 		LKDictUtils.usingStatus(sql, SysEmployeePunchTheClockR.usingStatus, i++);
-		LKDictUtils4App.appKey(sql, compId, SysEmployeePunchTheClockR.appKey, i++);
+		LKDictUtils4App.appKey(sql, params.getCompId(), SysEmployeePunchTheClockR.appKey, i++);
 		LKDictUtils.clientType(sql, SysEmployeePunchTheClockR.clientType, i++);
 
 		// 筛选条件（必填项）
-		// 公司ID
-		sql.eq(SysEmployeeR.compId, compId);
-		// 在用状态
-		addConditionUsingStatus(sql, SysEmployeePunchTheClockR.usingStatus, compId, sin.getUsingStatus());
+//		addConditionId(sql, SysEmployeeR.id, params.getId());
+//		addConditionLocale(sql, SysEmployeeR.locale, params.getLocale());
+		addConditionCompId(true, sql, SysEmployeeR.compId, params.getCompId(), params.getBusCompId());
+		addConditionUsingStatus(true, params.getCompId(), sql, SysEmployeeR.usingStatus, params.getUsingStatus(), LKUsingStatusEnum.USING);
 
 		// 筛选条件（业务项）
 		String appKey = sin.getAppKey();

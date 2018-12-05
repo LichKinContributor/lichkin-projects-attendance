@@ -9,9 +9,7 @@ import lombok.Setter;
 @Setter
 public class I extends LKRequestBean {
 
-	private String compId;
-
-	private String loginId;
+	private String employeeId;
 
 	private String scheduleId;
 

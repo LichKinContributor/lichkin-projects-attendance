@@ -12,7 +12,9 @@ import com.lichkin.framework.db.beans.SysEmployeeAttendanceR;
 import com.lichkin.framework.db.beans.SysEmployeeR;
 import com.lichkin.framework.db.enums.LikeType;
 import com.lichkin.framework.defines.enums.impl.LKDateTimeTypeEnum;
+import com.lichkin.framework.defines.enums.impl.LKUsingStatusEnum;
 import com.lichkin.framework.utils.LKDateTimeUtils;
+import com.lichkin.springframework.controllers.ApiKeyValues;
 import com.lichkin.springframework.entities.impl.SysEmployeeAttendanceEntity;
 import com.lichkin.springframework.entities.impl.SysEmployeeEntity;
 import com.lichkin.springframework.services.LKApiBusGetPageService;
@@ -21,7 +23,7 @@ import com.lichkin.springframework.services.LKApiBusGetPageService;
 public class S extends LKApiBusGetPageService<I, O, SysEmployeeAttendanceEntity> {
 
 	@Override
-	protected void initSQL(I sin, String locale, String compId, String loginId, QuerySQL sql) {
+	protected void initSQL(I sin, ApiKeyValues<I> params, QuerySQL sql) {
 		// 主表
 		sql.select(SysEmployeeAttendanceR.id);
 		sql.select(SysEmployeeAttendanceR.insertTime);
@@ -38,7 +40,7 @@ public class S extends LKApiBusGetPageService<I, O, SysEmployeeAttendanceEntity>
 		sql.select(SysEmployeeAttendanceR.lastPunchTime);
 
 		// 关联表
-		sql.innerJoin(SysEmployeeEntity.class, new Condition(SysEmployeeR.id, SysEmployeeAttendanceR.loginId));
+		sql.innerJoin(SysEmployeeEntity.class, new Condition(SysEmployeeR.id, SysEmployeeAttendanceR.employeeId));
 		sql.select(SysEmployeeR.userName);
 		sql.select(SysEmployeeR.cellphone);
 
@@ -47,10 +49,10 @@ public class S extends LKApiBusGetPageService<I, O, SysEmployeeAttendanceEntity>
 		LKDictUtils.usingStatus(sql, SysEmployeeAttendanceR.usingStatus, i++);
 
 		// 筛选条件（必填项）
-		// 公司ID
-		addConditionCompId(false, sql, SysEmployeeAttendanceR.compId, compId, sin.getCompId());
-		// 在用状态
-		addConditionUsingStatus(sql, SysEmployeeAttendanceR.usingStatus, compId, sin.getUsingStatus());
+//		addConditionId(sql, SysEmployeeAttendanceR.id, params.getId());
+//		addConditionLocale(sql, SysEmployeeAttendanceR.locale, params.getLocale());
+		addConditionCompId(true, sql, SysEmployeeAttendanceR.compId, params.getCompId(), params.getBusCompId());
+		addConditionUsingStatus(true, params.getCompId(), sql, SysEmployeeAttendanceR.usingStatus, params.getUsingStatus(), LKUsingStatusEnum.USING);
 
 		// 筛选条件（业务项）
 		String userName = sin.getUserName();

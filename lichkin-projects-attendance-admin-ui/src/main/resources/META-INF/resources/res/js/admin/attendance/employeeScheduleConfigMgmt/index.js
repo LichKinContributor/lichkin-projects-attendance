@@ -44,7 +44,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
                       click : function($button, $dialog, $contentBar) {
                         var $form = $contentBar.find('form');
                         if ($form.LKValidate()) {
-                          var loginId = $form.find('input[name=loginId]').val();
+                          var employeeId = $form.find('input[name=employeeId]').val();
                           var scheduleId = $form.find('input[name=scheduleId]').val();
                           var employeeSchedule = [];
                           $form.find('input[name=employeeSchedule]').each(function() {
@@ -54,7 +54,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
                           LK.ajax({
                             url : '/SysEmployeeScheduleConfig/I',
                             data : {
-                              loginId : loginId,
+                              employeeId : employeeId,
                               scheduleId : scheduleId,
                               scheduleInfo : employeeSchedule.join(LK.SPLITOR)
                             },
@@ -125,7 +125,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
                     formFields.push({
                       plugin : 'hidden',
                       options : {
-                        name : 'loginId',
+                        name : 'employeeId',
                         value : $droplist.data('gridRowData').id
                       }
                     });

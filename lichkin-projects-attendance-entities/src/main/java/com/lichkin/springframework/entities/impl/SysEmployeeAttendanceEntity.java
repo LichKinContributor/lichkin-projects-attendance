@@ -57,7 +57,7 @@ public class SysEmployeeAttendanceEntity extends BaseCompEntity {
 	/** 员工ID（SysEmployeeEntity.id） */
 	@FieldGenerator()
 	@Column(length = 64, nullable = false)
-	private String loginId;
+	private String employeeId;
 
 	/** 工作日期（yyyy-MM-dd） */
 	@FieldGenerator(resultColumn = true)

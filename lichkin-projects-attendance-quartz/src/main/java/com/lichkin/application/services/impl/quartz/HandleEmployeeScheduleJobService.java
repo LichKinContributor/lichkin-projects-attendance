@@ -43,7 +43,7 @@ public class HandleEmployeeScheduleJobService extends LKBaseDBJobService {
 
 				new Condition(new eq_(SysEmployeeR.compId, SysEmployeeScheduleConfigR.compId)),
 
-				new Condition(true, new eq_(SysEmployeeR.id, SysEmployeeScheduleConfigR.loginId))
+				new Condition(true, new eq_(SysEmployeeR.id, SysEmployeeScheduleConfigR.employeeId))
 
 		);
 
@@ -66,7 +66,7 @@ public class HandleEmployeeScheduleJobService extends LKBaseDBJobService {
 			SysEmployeeEntity employee = listEmployee.get(i);
 			for (int j = listEmployeeAttendance.size() - 1; j >= 0; j--) {
 				SysEmployeeAttendanceEntity employeeAttendance = listEmployeeAttendance.get(j);
-				if (employee.getId().equals(employeeAttendance.getLoginId()) && employee.getCompId().equals(employeeAttendance.getCompId())) {
+				if (employee.getId().equals(employeeAttendance.getEmployeeId()) && employee.getCompId().equals(employeeAttendance.getCompId())) {
 					listEmployee.remove(employee);
 					listEmployeeAttendance.remove(employeeAttendance);
 					break;

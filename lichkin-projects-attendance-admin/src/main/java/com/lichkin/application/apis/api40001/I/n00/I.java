@@ -10,8 +10,6 @@ import lombok.Setter;
 @Setter
 public class I extends LKRequestBean {
 
-	private String compId;
-
 	private ScheduleTypeEnum scheduleType;
 
 	private String scheduleName;

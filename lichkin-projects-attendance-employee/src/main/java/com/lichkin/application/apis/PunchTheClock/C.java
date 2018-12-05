@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lichkin.framework.defines.LKFrameworkStatics;
 import com.lichkin.framework.web.annotations.LKApiType;
 import com.lichkin.framework.web.enums.ApiType;
+import com.lichkin.springframework.controllers.ApiKeyValues;
 import com.lichkin.springframework.controllers.LKApiBusInsertController;
 import com.lichkin.springframework.entities.impl.SysEmployeePunchTheClockEntity;
 import com.lichkin.springframework.services.LKApiBusInsertWithoutCheckerService;
@@ -21,7 +22,7 @@ public class C extends LKApiBusInsertController<I, SysEmployeePunchTheClockEntit
 
 
 	@Override
-	protected LKApiBusInsertWithoutCheckerService<I, SysEmployeePunchTheClockEntity> getService(I cin) {
+	protected LKApiBusInsertWithoutCheckerService<I, SysEmployeePunchTheClockEntity> getService(I cin, ApiKeyValues<I> params) {
 		return service;
 	}
 

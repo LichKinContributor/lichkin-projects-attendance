@@ -15,8 +15,6 @@ public class O {
 
 //	private String insertTime;
 
-	private String compId;
-
 	private ScheduleTypeEnum scheduleType;
 
 	private String scheduleName;

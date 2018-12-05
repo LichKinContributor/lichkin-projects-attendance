@@ -21,6 +21,7 @@ import com.lichkin.framework.defines.exceptions.LKException;
 import com.lichkin.framework.utils.LKAreaUtils;
 import com.lichkin.framework.utils.LKBeanUtils;
 import com.lichkin.framework.utils.LKDateTimeUtils;
+import com.lichkin.springframework.controllers.ApiKeyValues;
 import com.lichkin.springframework.entities.impl.SysAMapLocationEntity;
 import com.lichkin.springframework.entities.impl.SysCompAttendanceAreaConfigEntity;
 import com.lichkin.springframework.entities.impl.SysEmployeeAttendanceEntity;
@@ -49,8 +50,9 @@ public class S extends LKApiBusInsertWithoutCheckerService<I, SysEmployeePunchTh
 
 
 	@Override
-	protected void beforeSaveMain(I sin, String locale, String compId, String loginId, SysEmployeePunchTheClockEntity entity) {
+	protected void beforeSaveMain(I sin, ApiKeyValues<I> params, SysEmployeePunchTheClockEntity entity) {
 		LKAMapLocation amap = sin.getAmap();
+		entity.setUserId(params.getUser().getId());
 		entity.setMapType(LKMapAPIEnum.AMAP);
 		entity.setLatitude(amap.getLatitude());
 		entity.setLongitude(amap.getLongitude());
@@ -74,7 +76,7 @@ public class S extends LKApiBusInsertWithoutCheckerService<I, SysEmployeePunchTh
 
 
 	@Override
-	protected void addSubs(I sin, String locale, String compId, String loginId, SysEmployeePunchTheClockEntity entity, String id) {
+	protected void addSubs(I sin, ApiKeyValues<I> params, SysEmployeePunchTheClockEntity entity, String id) {
 		LKAMapLocation amap = sin.getAmap();
 		SysAMapLocationEntity aMapLocationEntity = LKBeanUtils.newInstance(true, amap, SysAMapLocationEntity.class);
 		aMapLocationEntity.setBusId(id);
@@ -84,12 +86,12 @@ public class S extends LKApiBusInsertWithoutCheckerService<I, SysEmployeePunchTh
 
 
 	@Override
-	protected void afterSubs(I sin, String locale, String compId, String loginId, SysEmployeePunchTheClockEntity entity, String id) throws LKException {
+	protected void afterSubs(I sin, ApiKeyValues<I> params, SysEmployeePunchTheClockEntity entity, String id) throws LKException {
 		// 查询当前打卡时间对应的考勤排班信息
 		String nowTime = LKDateTimeUtils.now(LKDateTimeTypeEnum.STANDARD);
 		QuerySQL sql = new QuerySQL(false, SysEmployeeAttendanceEntity.class);
-		sql.eq(SysEmployeeAttendanceR.compId, compId);
-		sql.eq(SysEmployeeAttendanceR.loginId, loginId);
+		sql.eq(SysEmployeeAttendanceR.compId, params.getCompId());
+		sql.eq(SysEmployeeAttendanceR.employeeId, params.getLoginId());
 		sql.lte(SysEmployeeAttendanceR.allowBeforeStartTime, nowTime);
 		sql.gte(SysEmployeeAttendanceR.allowAfterEndTime, nowTime);
 		sql.where(
@@ -113,7 +115,7 @@ public class S extends LKApiBusInsertWithoutCheckerService<I, SysEmployeePunchTh
 
 		// 在考勤时间范围内
 		// 不在考勤地区范围内
-		if (!checkAttendanceArea(compId, entity.getLatitude(), entity.getLongitude(), entity.getAltitude())) {
+		if (!checkAttendanceArea(params.getCompId(), entity.getLatitude(), entity.getLongitude(), entity.getAltitude())) {
 			throw new LKException(ErrorCodes.app_PunchTheClock_invalid_area);
 		}
 

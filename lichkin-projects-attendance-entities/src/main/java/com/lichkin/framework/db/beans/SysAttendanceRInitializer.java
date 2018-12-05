@@ -33,7 +33,7 @@ class SysAttendanceRInitializer implements LKRInitializer {
 		LKDBResource.addColumn("40002001", "SysEmployeeScheduleConfigEntity", "usingStatus");
 		LKDBResource.addColumn("40002002", "SysEmployeeScheduleConfigEntity", "insertTime");
 		LKDBResource.addColumn("40002003", "SysEmployeeScheduleConfigEntity", "compId");
-		LKDBResource.addColumn("40002004", "SysEmployeeScheduleConfigEntity", "loginId");
+		LKDBResource.addColumn("40002004", "SysEmployeeScheduleConfigEntity", "employeeId");
 		LKDBResource.addColumn("40002005", "SysEmployeeScheduleConfigEntity", "scheduleId");
 		LKDBResource.addColumn("40002006", "SysEmployeeScheduleConfigEntity", "scheduleInfo");
 		LKDBResource.addColumn("40002007", "SysEmployeeScheduleConfigEntity", "configTime");
@@ -42,7 +42,7 @@ class SysAttendanceRInitializer implements LKRInitializer {
 		LKDBResource.addColumn("40003001", "SysEmployeeAttendanceEntity", "usingStatus");
 		LKDBResource.addColumn("40003002", "SysEmployeeAttendanceEntity", "insertTime");
 		LKDBResource.addColumn("40003003", "SysEmployeeAttendanceEntity", "compId");
-		LKDBResource.addColumn("40003004", "SysEmployeeAttendanceEntity", "loginId");
+		LKDBResource.addColumn("40003004", "SysEmployeeAttendanceEntity", "employeeId");
 		LKDBResource.addColumn("40003005", "SysEmployeeAttendanceEntity", "workDate");
 		LKDBResource.addColumn("40003006", "SysEmployeeAttendanceEntity", "allowBeforeStartTime");
 		LKDBResource.addColumn("40003007", "SysEmployeeAttendanceEntity", "startTime");

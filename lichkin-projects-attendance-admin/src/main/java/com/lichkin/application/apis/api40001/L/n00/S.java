@@ -9,7 +9,9 @@ import com.lichkin.framework.db.beans.Order;
 import com.lichkin.framework.db.beans.QuerySQL;
 import com.lichkin.framework.db.beans.SysCompScheduleConfigR;
 import com.lichkin.framework.db.enums.LikeType;
+import com.lichkin.framework.defines.enums.impl.LKUsingStatusEnum;
 import com.lichkin.framework.defines.enums.impl.ScheduleTypeEnum;
+import com.lichkin.springframework.controllers.ApiKeyValues;
 import com.lichkin.springframework.entities.impl.SysCompScheduleConfigEntity;
 import com.lichkin.springframework.services.LKApiBusGetListService;
 
@@ -17,7 +19,7 @@ import com.lichkin.springframework.services.LKApiBusGetListService;
 public class S extends LKApiBusGetListService<I, O, SysCompScheduleConfigEntity> {
 
 	@Override
-	protected void initSQL(I sin, String locale, String compId, String loginId, QuerySQL sql) {
+	protected void initSQL(I sin, ApiKeyValues<I> params, QuerySQL sql) {
 		// 主表
 		sql.select(SysCompScheduleConfigR.id);
 		sql.select(SysCompScheduleConfigR.insertTime);
@@ -42,10 +44,10 @@ public class S extends LKApiBusGetListService<I, O, SysCompScheduleConfigEntity>
 		LKDictUtils4Attendance.scheduleType(sql, SysCompScheduleConfigR.scheduleType, i++);
 
 		// 筛选条件（必填项）
-		// 公司ID
-		addConditionCompId(false, sql, SysCompScheduleConfigR.compId, compId, sin.getCompId());
-		// 在用状态
-		addConditionUsingStatus(sql, SysCompScheduleConfigR.usingStatus, compId, sin.getUsingStatus());
+//		addConditionId(sql, SysCompScheduleConfigR.id, params.getId());
+//		addConditionLocale(sql, SysCompScheduleConfigR.locale, params.getLocale());
+		addConditionCompId(true, sql, SysCompScheduleConfigR.compId, params.getCompId(), params.getBusCompId());
+		addConditionUsingStatus(true, params.getCompId(), sql, SysCompScheduleConfigR.usingStatus, params.getUsingStatus(), LKUsingStatusEnum.USING);
 
 		// 筛选条件（业务项）
 		ScheduleTypeEnum scheduleType = sin.getScheduleType();

@@ -4,41 +4,27 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
 } : {}), {
   i18nKey : 'employeePunchTheClockMgmt',
   $appendTo : true,
-  cols : 3,
+  cols : 4,
   url : '/SysEmployeePunchTheClock/P',
   columns : [
       {
         text : 'userName',
         name : 'userName',
-        width : 120
+        width : 80
       }, {
         text : 'cellphone',
         name : 'cellphone',
-        width : 120
+        width : 100
       }, {
-        text : 'employeePunchTheClockTime',
-        width : 145,
+        text : 'insertTime',
+        width : 140,
         formatter : function(rowData) {
           return showStandardTime(rowData.insertTime);
         }
       }, {
-        text : 'employeePunchTheClockAddress',
+        text : 'address',
         name : 'address',
-        width : 120
-      }, {
-        text : 'appVersion_appKey',
-        name : 'appKey',
-        width : 120
-      }, {
-        text : 'appVersion_clientType',
-        name : 'clientType',
-        width : 120
-      }, {
-        text : 'appVersions',
-        width : 120,
-        formatter : function(rowData) {
-          return rowData.versionX + '.' + rowData.versionY + '.' + rowData.versionZ;
-        }
+        width : null
       }
   ],
   pageable : true,

@@ -14,7 +14,7 @@ public interface SysEmployeeScheduleConfigR {
 
 	public static final int compId = 0x40002003;
 
-	public static final int loginId = 0x40002004;
+	public static final int employeeId = 0x40002004;
 
 	public static final int scheduleId = 0x40002005;
 

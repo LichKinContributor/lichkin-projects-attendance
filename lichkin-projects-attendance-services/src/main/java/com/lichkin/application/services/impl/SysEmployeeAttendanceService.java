@@ -26,9 +26,9 @@ import com.lichkin.springframework.services.LKDBService;
 public class SysEmployeeAttendanceService extends LKDBService {
 
 	@Transactional
-	public void resetNextWeekEmployeeAttendance(String compId, String loginId) {
+	public void resetNextWeekEmployeeAttendance(String compId, String employeeId) {
 		// 查询员工排班配置
-		SysEmployeeScheduleConfigEntity employeeScheduleConfig = getEmployeeScheduleConfigByCompIdAndLoginId(compId, loginId);
+		SysEmployeeScheduleConfigEntity employeeScheduleConfig = getEmployeeScheduleConfigByCompIdAndEmployeeId(compId, employeeId);
 		if (employeeScheduleConfig == null) {
 			return;
 		}
@@ -43,10 +43,10 @@ public class SysEmployeeAttendanceService extends LKDBService {
 		DateTime firstDayOfNextWeek = getFirstDayOfNextWeek();
 
 		// 删除下周的员工考勤信息
-		clearNextWeekEmployeeAttendance(compId, loginId, firstDayOfNextWeek);
+		clearNextWeekEmployeeAttendance(compId, employeeId, firstDayOfNextWeek);
 
 		// 生成下周的员工考勤信息
-		createNextWeekEmployeeAttendance(compId, loginId, firstDayOfNextWeek, employeeScheduleConfig.getScheduleInfo().split(LKFrameworkStatics.SPLITOR), compScheduleConfig);
+		createNextWeekEmployeeAttendance(compId, employeeId, firstDayOfNextWeek, employeeScheduleConfig.getScheduleInfo().split(LKFrameworkStatics.SPLITOR), compScheduleConfig);
 	}
 
 
@@ -62,10 +62,10 @@ public class SysEmployeeAttendanceService extends LKDBService {
 	/**
 	 * 获取员工排班配置信息
 	 */
-	private SysEmployeeScheduleConfigEntity getEmployeeScheduleConfigByCompIdAndLoginId(String compId, String loginId) {
+	private SysEmployeeScheduleConfigEntity getEmployeeScheduleConfigByCompIdAndEmployeeId(String compId, String employeeId) {
 		QuerySQL sql = new QuerySQL(SysEmployeeScheduleConfigEntity.class);
 		sql.eq(SysEmployeeScheduleConfigR.compId, compId);
-		sql.eq(SysEmployeeScheduleConfigR.loginId, loginId);
+		sql.eq(SysEmployeeScheduleConfigR.employeeId, employeeId);
 		return dao.getOne(sql, SysEmployeeScheduleConfigEntity.class);
 	}
 
@@ -73,10 +73,10 @@ public class SysEmployeeAttendanceService extends LKDBService {
 	/**
 	 * 删除下周的员工考勤信息
 	 */
-	public void clearNextWeekEmployeeAttendance(String compId, String loginId, DateTime firstDayOfNextWeek) {
+	public void clearNextWeekEmployeeAttendance(String compId, String employeeId, DateTime firstDayOfNextWeek) {
 		DeleteSQL sql = new DeleteSQL(SysEmployeeAttendanceEntity.class);
 		sql.eq(SysEmployeeAttendanceR.compId, compId);
-		sql.eq(SysEmployeeAttendanceR.loginId, loginId);
+		sql.eq(SysEmployeeAttendanceR.employeeId, employeeId);
 		sql.gte(SysEmployeeAttendanceR.workDate, LKDateTimeUtils.toString(firstDayOfNextWeek, LKDateTimeTypeEnum.DATE_ONLY));
 		sql.lte(SysEmployeeAttendanceR.workDate, LKDateTimeUtils.toString(firstDayOfNextWeek.plusDays(6), LKDateTimeTypeEnum.DATE_ONLY));
 		dao.delete(sql);
@@ -86,14 +86,14 @@ public class SysEmployeeAttendanceService extends LKDBService {
 	/**
 	 * 生成下周的员工考勤信息
 	 */
-	private void createNextWeekEmployeeAttendance(String compId, String loginId, DateTime firstDayOfNextWeek, String[] schedules, SysCompScheduleConfigEntity compSchedule) {
+	private void createNextWeekEmployeeAttendance(String compId, String employeeId, DateTime firstDayOfNextWeek, String[] schedules, SysCompScheduleConfigEntity compSchedule) {
 		List<SysEmployeeAttendanceEntity> list = new ArrayList<>(7);
 
 		for (int i = 0; i < 7; i++) {
 			SysEmployeeAttendanceEntity entity = new SysEmployeeAttendanceEntity();
 
 			entity.setCompId(compId);
-			entity.setLoginId(loginId);
+			entity.setEmployeeId(employeeId);
 
 			String day = LKDateTimeUtils.toString(firstDayOfNextWeek.plusDays(i), LKDateTimeTypeEnum.DATE_ONLY);
 			entity.setWorkDate(day);
@@ -192,16 +192,16 @@ public class SysEmployeeAttendanceService extends LKDBService {
 
 	/**
 	 * 获取考勤列表
-	 * @param loginId 员工ID
+	 * @param employeeId 员工ID
 	 * @param compId 公司ID
 	 * @param startDate 开始日期
 	 * @param endDate 结束日期
 	 * @return 考勤列表
 	 */
-	public List<SysEmployeeAttendanceEntity> getListAttendance(String loginId, String compId, String startDate, String endDate) {
+	public List<SysEmployeeAttendanceEntity> getListAttendance(String employeeId, String compId, String startDate, String endDate) {
 		QuerySQL sql = new QuerySQL(false, SysEmployeeAttendanceEntity.class);
-		if (!"NO".equals(loginId)) {
-			sql.eq(SysEmployeeAttendanceR.loginId, loginId);
+		if (!"NO".equals(employeeId)) {
+			sql.eq(SysEmployeeAttendanceR.employeeId, employeeId);
 		}
 		sql.eq(SysEmployeeAttendanceR.compId, compId);
 		sql.gte(SysEmployeeAttendanceR.workDate, startDate);
