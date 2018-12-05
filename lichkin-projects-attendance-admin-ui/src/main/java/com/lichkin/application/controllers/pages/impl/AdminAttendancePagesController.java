@@ -22,6 +22,11 @@ public class AdminAttendancePagesController extends LKPagesController {
 			throw new LKRuntimeException(LKErrorCodesEnum.NOT_FOUND);
 		}
 		switch (module) {
+			case "compAttendanceAreaConfigMgmt":
+			case "employeePunchTheClockMgmt":
+				LKPage mv = new LKPage(LKPage.BLANK);
+				mv.putAttribute("AmapParams", "v=1.4.10&key=fb46b662ca9ba19da9e44f5cf8c2cf0d&plugin=AMap.CircleEditor");
+				return mv;
 			default:
 				return new LKPage(LKPage.BLANK);
 		}

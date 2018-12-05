@@ -103,6 +103,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
                           validator : true,
                           url : '/SysCompScheduleConfig/LD01',
                           lazy : true,
+                          selectFirst : true,
                           onLinkaged : function($plugin, linkage) {
                             switch (linkage.linkageName) {
                               case 'scheduleId':

@@ -34,7 +34,7 @@ public class SysCompAttendanceAreaConfigEntity extends CompIDEntity {
 
 	/** 水平面半径（50米） */
 	@Column(nullable = false)
-	private Byte radius;
+	private Integer radius;
 
 	/** 垂直面落差（米） */
 	@Column

@@ -8,21 +8,20 @@ import com.lichkin.framework.defines.LKFrameworkStatics;
 import com.lichkin.framework.web.annotations.LKApiType;
 import com.lichkin.framework.web.enums.ApiType;
 import com.lichkin.springframework.controllers.ApiKeyValues;
-import com.lichkin.springframework.controllers.LKApiBusInsertController;
-import com.lichkin.springframework.entities.impl.SysEmployeeScheduleConfigEntity;
-import com.lichkin.springframework.services.LKApiBusInsertWithoutCheckerService;
+import com.lichkin.springframework.controllers.LKApiVVController;
+import com.lichkin.springframework.services.LKApiVoidService;
 
 @RestController("SysEmployeeScheduleConfigI00Controller")
 @RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API + "/SysEmployeeScheduleConfig/I")
 @LKApiType(apiType = ApiType.COMPANY_BUSINESS)
-public class C extends LKApiBusInsertController<I, SysEmployeeScheduleConfigEntity> {
+public class C extends LKApiVVController<I> {
 
 	@Autowired
 	private S service;
 
 
 	@Override
-	protected LKApiBusInsertWithoutCheckerService<I, SysEmployeeScheduleConfigEntity> getService(I cin, ApiKeyValues<I> params) {
+	protected LKApiVoidService<I> getService(I cin, ApiKeyValues<I> params) {
 		return service;
 	}
 
