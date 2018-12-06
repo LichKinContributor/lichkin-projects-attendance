@@ -22,8 +22,6 @@ public class S extends LKApiBusGetDroplistService<I> {
 
 		List<LKDroplistBean> list = new ArrayList<>();
 
-		list.add(new LKDroplistBean(LKI18NUtils.getString(LKI18NUtils.getLocale(params.getLocale()), "app-attendance-api-extends", "com.lichkin.api.dayOff"), -1));
-
 		if (StringUtils.isNotBlank(entity.getStartTime0())) {
 			list.add(new LKDroplistBean(entity.getStartTime0() + "~" + entity.getEndTime0(), 0));
 		}
@@ -35,6 +33,8 @@ public class S extends LKApiBusGetDroplistService<I> {
 		if (StringUtils.isNotBlank(entity.getStartTime2())) {
 			list.add(new LKDroplistBean(entity.getStartTime2() + "~" + entity.getEndTime2(), 2));
 		}
+
+		list.add(new LKDroplistBean(LKI18NUtils.getString(LKI18NUtils.getLocale(params.getLocale()), "app-attendance-api-extends", "com.lichkin.api.dayOff"), -1));
 
 		return list;
 	}
