@@ -1,6 +1,6 @@
 $.LKExtendI18N({
   'compAttendanceAreaConfigMgmt' : {
-    'title' : '设置打卡地点',
+    'title' : '设置打卡区域',
 
     'coverage' : '打卡有效范围',
     'longitude' : '经度',

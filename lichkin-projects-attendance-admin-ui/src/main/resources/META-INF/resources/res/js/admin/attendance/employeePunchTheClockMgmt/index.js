@@ -61,7 +61,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
                   plugin : 'map',
                   options : {
                     key : 'employeePunchTheClockMgmt.grid.columns.coverage',
-                    name : 'coverage',
+                    name : 'address',
                     value : {
                       longitude : selectedDatas.longitude,
                       latitude : selectedDatas.latitude,

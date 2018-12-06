@@ -12,7 +12,6 @@ $.LKExtendI18N({
         'startDate' : '起始日期',
         'endDate' : '截止日期',
         'cellphone' : '手机号码',
-        'coverage' : '打卡地点'
       }
     }
   }

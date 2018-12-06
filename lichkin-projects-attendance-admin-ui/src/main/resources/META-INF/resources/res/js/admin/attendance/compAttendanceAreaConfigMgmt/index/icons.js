@@ -1,3 +1,3 @@
 $.LKExtendICON({
-  'compAttendanceAreaConfigMgmt' : 'user-clock',
+  'compAttendanceAreaConfigMgmt' : 'street-view',
 });
